@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- This section links this module to the parent POM in the root directory -->
+    <parent>
+        <groupId>com.proctor</groupId>
+        <artifactId>proctoring-library-parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <!-- The specific identifier for this module -->
+    <artifactId>java-client</artifactId>
+    <name>Proctoring Client Application</name>
+    
+    <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
+        <!-- JNA: Allows Java to call native OS functions for monitoring windows, etc. -->
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna-platform</artifactId>
+            <version>5.12.1</version>
+        </dependency>
+
+        <!-- For creating and parsing JSON event objects -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20230227</version>
+        </dependency>
+
+         <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.32</version>
+        </dependency>
+        
+        <!-- For WebSocket client communication with the server -->
+        <dependency>
+            <groupId>org.java-websocket</groupId>
+            <artifactId>Java-WebSocket</artifactId>
+            <version>1.5.3</version>
+        </dependency>
+    </dependencies>
+
+    <!-- This build section is critical for creating the final runnable application -->
+    <build>
+        <plugins>
+            <!-- This plugin copies the Python executable from the python-agent build into this project's resources -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.3.1</version>
+                <executions>
+                    <execution>
+                        <id>copy-python-executable</id>
+                        <!-- This runs early in the build cycle -->
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <!-- The destination for the executable inside the final JAR -->
+                            <outputDirectory>${project.build.outputDirectory}/bin</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <!-- The source directory of the Python executable -->
+                                    <directory>../python-agent/dist</directory>
+                                    <includes>
+                                        <!-- The name of the executable created by PyInstaller -->
+                                        <include>proctor_agent*</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- This plugin creates the final "fat JAR" that includes all dependencies and the Python executable -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.6.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <!-- This sets the "Main-Class" attribute in the JAR's manifest, making it runnable -->
+                            <mainClass>com.proctor.client.ProctorApp</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <!-- This is a pre-defined assembly descriptor that bundles all dependencies -->
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <!-- This binds the plugin to the 'package' phase of the Maven lifecycle -->
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
+

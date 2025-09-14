@@ -1,0 +1,26 @@
+{
+  "name": "proctokit",
+  "version": "1.0.0",
+  "description": "A server-side SDK for a secure online proctoring system, enabling real-time monitoring of exam sessions.",
+  "main": "lib/ProctorSDK.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/your-username/proctoring-library.git"
+  },
+  "keywords": [
+    "proctor",
+    "proctoring",
+    "exam",
+    "online-exam",
+    "security",
+    "websocket"
+  ],
+  "author": "Kamalesh S kamaleshofficialzzz@gmail.com",
+  "license": "MIT",
+  "dependencies": {
+    "ws": "^8.13.0"
+  }
+}

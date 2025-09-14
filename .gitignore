@@ -1,0 +1,33 @@
+#Ignore IDE-specific files from IntelliJ, VSCode, etc.
+.idea/
+*.iml
+.vscode/
+
+#Ignore Java build output folders
+target/
+
+#Ignore Python build output and cache
+dist/
+build/
+*.pyc
+pycache/
+
+#Ignore macOS installer build output
+build_macos/
+
+#Ignore Windows installer build output
+installer/Output/
+
+#Ignore Python virtual environment folder
+venv/
+
+#Ignore general dependency folders
+node_modules/
+
+#Ignore OS-specific system files
+.DS_Store
+Thumbs.db
+
+#Ignore log files
+*.log
+.log.

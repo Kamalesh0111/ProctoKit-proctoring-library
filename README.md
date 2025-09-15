@@ -57,8 +57,8 @@ graph TD
     end
 
     subgraph "Student's Computer"
-        E[Java Client Application] --> F(OS Monitors: Clipboard, Windows, etc.);
-        E --> G(Python Vision Agent: Face Detection);
+        E[Java Client Application] --> F(OS Monitors: Clipboard, etc);
+        E --> G(Python Agent: Face Detect);
     end
 
     C <== Secure WebSocket ==> E;

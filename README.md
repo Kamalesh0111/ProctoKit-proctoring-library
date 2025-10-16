@@ -187,8 +187,7 @@ The developer's frontend is responsible for guiding the student through a one-ti
 
 ## Contributing
 
-We welcome contributions! Please feel free to submit a pull request or open an issue on our [GitHub repository](https://github.com/your-repo).
-
+We welcome contributions! Please feel free to submit a pull request or open an issue on our [GitHub repository](https://github.com/Kamalesh0111/ProctoKit-proctoring-library)
 ## License
 
 This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
